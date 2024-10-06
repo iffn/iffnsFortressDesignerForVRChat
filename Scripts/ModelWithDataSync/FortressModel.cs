@@ -8,10 +8,10 @@ namespace iffnsStuff.iffnsVRCStuff.FortressBuilder
 {
     public class FortressModel : UdonSharpBehaviour
     {
-        [UdonSynced] int[] elementTypes = new int[0];
-        [UdonSynced] int[] xPos = new int[0];
-        [UdonSynced] int[] yPos = new int[0];
-        [UdonSynced] int[] zPos = new int[0];
+        [UdonSynced] public int[] elementTypes = new int[0];
+        [UdonSynced] public int[] xPos = new int[0];
+        [UdonSynced] public int[] yPos = new int[0];
+        [UdonSynced] public int[] zPos = new int[0];
 
         public int[] ElementTypes { get { return elementTypes; } }
         public int[] XPos { get { return xPos; } }
@@ -38,17 +38,17 @@ namespace iffnsStuff.iffnsVRCStuff.FortressBuilder
 
             int grabIndex = 0;
 
-            for (int i = 0; i < returnArray.Length; i++)
+            for (int i = 0; i < baseArray.Length; i++)
             {
                 if (i == indexToBeRemoved) continue;
 
-                returnArray[i] = baseArray[grabIndex++];
+                returnArray[grabIndex++] = baseArray[i];
             }
 
             return returnArray;
         }
 
-        public void AddeElement(int element, int x, int y, int z)
+        public void AddElement(int element, int x, int y, int z)
         {
             elementTypes = AddElementToArray(elementTypes, element);
             xPos = AddElementToArray(xPos, x);
