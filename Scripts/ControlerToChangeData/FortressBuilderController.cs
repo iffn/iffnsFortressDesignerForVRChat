@@ -11,9 +11,8 @@ public class FortressBuilderController : UdonSharpBehaviour
 {
     [SerializeField] FortressModel linkedModel;
     [SerializeField] FortressViewPlacingModels linkedViewPlacingModels;
-    [SerializeField] GameObject TerrainWithCollider;
-    [SerializeField] GameObject TerrainWithoutCollider;
-    [SerializeField] GameObject BuildingLibraryHolder;
+    [SerializeField] GameObject BuilderOnlyObjectHolder;
+    [SerializeField] GameObject VisitorOnlyObjectHolder;
 
     [SerializeField] float builderPlayerHeight = 10;
 
@@ -56,9 +55,8 @@ public class FortressBuilderController : UdonSharpBehaviour
 
     void ActivateBuilderObjects(bool builder)
     {
-        TerrainWithCollider.SetActive(!builder);
-        TerrainWithoutCollider.SetActive(builder);
-        BuildingLibraryHolder.SetActive(builder);
+        VisitorOnlyObjectHolder.SetActive(!builder);
+        BuilderOnlyObjectHolder.SetActive(builder);
     }
 
     void HandleGetFortressElement(bool rightHandOrDesktop)
