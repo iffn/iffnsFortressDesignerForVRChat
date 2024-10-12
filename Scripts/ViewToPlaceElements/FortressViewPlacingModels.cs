@@ -11,6 +11,8 @@ public class FortressViewPlacingModels : UdonSharpBehaviour
     [SerializeField] Transform elementHolder;
     Vector3 gridSize = new Vector3(3f, 3f, 3f);
 
+    public Vector3 GridSize { get { return gridSize; } }
+
     private void Start()
     {
         Setup();

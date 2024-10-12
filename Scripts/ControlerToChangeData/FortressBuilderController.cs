@@ -1,5 +1,6 @@
 ﻿
 using iffnsStuff.iffnsVRCStuff.FortressBuilder;
+using Newtonsoft.Json.Linq;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,6 +14,8 @@ public class FortressBuilderController : UdonSharpBehaviour
     [SerializeField] FortressViewPlacingModels linkedViewPlacingModels;
     [SerializeField] GameObject BuilderOnlyObjectHolder;
     [SerializeField] GameObject VisitorOnlyObjectHolder;
+    [SerializeField] Transform buildingLibrary;
+    [SerializeField] Transform buildingGrid;
 
     [SerializeField] float builderPlayerHeight = 10;
 
@@ -28,8 +31,27 @@ public class FortressBuilderController : UdonSharpBehaviour
     //Runtime variables
     bool inBuildMode = false;
     float normalUserHeight = 1;
-    public FortressElementController selectedElement;
+    FortressElementController selectedElement;
     Vector3 initialElementPosition;
+
+
+    float floorHeight = 0;
+    int selectedFloorDontWrite = 0;
+    int SelectedFloor
+    {
+        set
+        {
+            selectedFloorDontWrite = value;
+            floorHeight = selectedFloorDontWrite * linkedViewPlacingModels.GridSize.y;
+            Vector3 gridPosition = buildingGrid.localPosition;
+            gridPosition.y = floorHeight;
+            buildingGrid.localPosition = gridPosition;
+        }
+        get
+        {
+            return selectedFloorDontWrite;
+        }
+    }
 
     float walkSpeed;
     float runSpeed;
@@ -43,9 +65,13 @@ public class FortressBuilderController : UdonSharpBehaviour
         normalUserHeight = localPlayer.GetAvatarEyeHeightAsMeters();
         localPlayer.SetAvatarEyeHeightByMeters(builderPlayerHeight);
 
+        Networking.SetOwner(localPlayer, linkedModel.gameObject);
+
         ActivateBuilderObjects(true);
 
         inBuildMode = true;
+
+        localPlayer.Respawn();
 
         //Somehow gets reset:
         /*
@@ -53,7 +79,6 @@ public class FortressBuilderController : UdonSharpBehaviour
         localPlayer.SetWalkSpeed(walkSpeed * builderPlayerHeight);
         localPlayer.SetStrafeSpeed(straveSpeed * builderPlayerHeight);
         */
-
     }
 
     void ExitBuildMode()
@@ -63,6 +88,8 @@ public class FortressBuilderController : UdonSharpBehaviour
         ActivateBuilderObjects(false);
 
         inBuildMode = false;
+
+        localPlayer.Respawn();
 
         /*
         localPlayer.SetRunSpeed(runSpeed);
@@ -98,11 +125,14 @@ public class FortressBuilderController : UdonSharpBehaviour
 
             if (element == null) return;
 
+            if (element.transform.parent != buildingLibrary) return;
+
             selectedElement = element;
             initialElementPosition = selectedElement.transform.position;
         }
     }
 
+    /*
     public Vector3 headPosition;
     public Vector3 rayDirection;
     public float targetHeight;
@@ -112,6 +142,7 @@ public class FortressBuilderController : UdonSharpBehaviour
     public Vector3 hitPosition;
     public Vector3 localHitPosition;
     public Vector3 placePosition;
+    */
 
     void HandlePositionFortressElement()
     {
@@ -124,15 +155,16 @@ public class FortressBuilderController : UdonSharpBehaviour
         {
             VRCPlayerApi.TrackingData head = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head);
 
-            headPosition = head.position;
-            rayDirection = head.rotation * Vector3.forward;
-            targetHeight = linkedModel.transform.position.y;
-            heightDifference = targetHeight - head.position.y;
-            heightMultiplier = heightDifference / rayDirection.y;
-            rayOffset = rayDirection * heightMultiplier;
-            hitPosition = head.position + rayOffset;
-            localHitPosition = linkedModel.transform.InverseTransformPoint(hitPosition);
-            
+            Vector3 rayDirection = head.rotation * Vector3.forward;
+            float targetHeight = buildingGrid.position.y + linkedViewPlacingModels.GridSize.y * 0.5f;
+            float heightDifference = targetHeight - head.position.y;
+            Debug.Log($"{nameof(targetHeight)} {targetHeight}");
+            Debug.Log($"{nameof(heightDifference)} {heightDifference}");
+            float heightMultiplier = heightDifference / rayDirection.y;
+            Vector3 rayOffset = rayDirection * heightMultiplier;
+            Vector3 hitPosition = head.position + rayOffset;
+            Vector3 localHitPosition = linkedModel.transform.InverseTransformPoint(hitPosition);
+
             /*
             Ray ray = new Ray(head.position, rayDirection);
 
@@ -164,7 +196,7 @@ public class FortressBuilderController : UdonSharpBehaviour
 
             currentGridPosition -= largeOffset;
 
-            placePosition = linkedModel.transform.TransformPoint(currentGridPosition * 3);
+            Vector3 placePosition = linkedModel.transform.TransformPoint(currentGridPosition * 3);
             selectedElement.transform.position = placePosition;
 
         }
@@ -194,11 +226,20 @@ public class FortressBuilderController : UdonSharpBehaviour
         runSpeed = localPlayer.GetRunSpeed();
         straveSpeed = localPlayer.GetStrafeSpeed();
 
-        if (Networking.LocalPlayer.playerId == 1)
+        SelectedFloor = 0;
+        buildingGrid.SetPositionAndRotation(linkedViewPlacingModels.transform.position, linkedViewPlacingModels.transform.rotation);
+
+        if (localPlayer.isInstanceOwner)
         {
+            Debug.Log("Making player instance owner");
             MakePlayerTheBuilder();
         }
+        else
+        {
+            ActivateBuilderObjects(false);
+        }
     }
+    
 
     private void Update()
     {
@@ -216,7 +257,24 @@ public class FortressBuilderController : UdonSharpBehaviour
             localPlayer.SetStrafeSpeed(straveSpeed);
         }
 
+        if (Input.GetKeyDown(KeyCode.PageUp) || Input.GetAxis("Mouse ScrollWheel") > 0f) SelectedFloor++;
+        if (Input.GetKeyDown(KeyCode.PageDown) || Input.GetAxis("Mouse ScrollWheel") < -0f) SelectedFloor--;
+
+        if (Input.GetKeyDown(KeyCode.F1)) MakePlayerTheBuilder(); 
+        if (Input.GetKeyDown(KeyCode.F2)) ExitBuildMode(); 
+
         if (selectedElement != null) HandlePositionFortressElement();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (selectedElement == null) HandleGetFortressElement(true);
+            else PlaceElement();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if (selectedElement != null) DropElement();
+        }
 
         if (inVR)
         {
@@ -276,11 +334,7 @@ public class FortressBuilderController : UdonSharpBehaviour
         }
         else
         {
-            if (value)
-            {
-                if (selectedElement == null) HandleGetFortressElement(true);
-                else PlaceElement();
-            }
+            // VRChat event called multiple times for 2 years now (...): https://vrchat.canny.io/udon/p/1275-inputuse-is-called-twice-per-mouse-click
         }
     }
 
@@ -296,10 +350,7 @@ public class FortressBuilderController : UdonSharpBehaviour
         }
         else
         {
-            if (value)
-            {
-                if (selectedElement != null) DropElement();
-            }
+            // VRChat event called multiple times for 2 years now (...): https://vrchat.canny.io/udon/p/1275-inputuse-is-called-twice-per-mouse-click
         }
     }
 }
