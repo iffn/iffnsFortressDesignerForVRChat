@@ -10075,7 +10075,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
+  _syncMethod: 3
   serializedProgramAsset: {fileID: 11400000, guid: a398e6f818f74844a8df1e025f8854fe,
     type: 2}
   programSource: {fileID: 11400000, guid: 18f1238399e91984bbe405df1f366153, type: 2}
@@ -25756,7 +25756,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
+  _syncMethod: 3
   serializedProgramAsset: {fileID: 11400000, guid: 7f9235661040e7a4f8a608862846925b,
     type: 2}
   programSource: {fileID: 11400000, guid: ea5ef393a52cdf340849a93b38e41bd4, type: 2}
@@ -32648,7 +32648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchedFromSDKPipeline: 0
   completedSDKPipeline: 0
-  blueprintId: 
+  blueprintId: wrld_bcd11c92-43c4-4e0e-818f-2a43a59886f0
   contentType: 1
   assetBundleUnityVersion: 
   fallbackStatus: 0

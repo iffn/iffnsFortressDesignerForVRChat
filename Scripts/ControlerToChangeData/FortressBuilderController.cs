@@ -19,6 +19,8 @@ public class FortressBuilderController : UdonSharpBehaviour
 
     [SerializeField] float builderPlayerHeight = 10;
 
+    [UdonSynced] bool syncedBuilderActive = false;
+
     //Setup variables
     VRCPlayerApi localPlayer;
     bool inVR;
@@ -62,10 +64,20 @@ public class FortressBuilderController : UdonSharpBehaviour
     //Internal functions
     void MakePlayerTheBuilder()
     {
+        Debug.Log("Trying to make player the builder");
+        Debug.Log($"{nameof(syncedBuilderActive)} {syncedBuilderActive}");
+        Debug.Log($"{nameof(inBuildMode)} {inBuildMode}");
+
+        if (syncedBuilderActive && !inBuildMode) return;
+
+        if(!Networking.IsOwner(linkedModel.gameObject)) Networking.SetOwner(localPlayer, linkedModel.gameObject);
+        if(!Networking.IsOwner(gameObject)) Networking.SetOwner(localPlayer, gameObject);
+        syncedBuilderActive = true;
+        RequestSerialization();
+
         normalUserHeight = localPlayer.GetAvatarEyeHeightAsMeters();
         localPlayer.SetAvatarEyeHeightByMeters(builderPlayerHeight);
 
-        Networking.SetOwner(localPlayer, linkedModel.gameObject);
 
         ActivateBuilderObjects(true);
 
@@ -81,8 +93,17 @@ public class FortressBuilderController : UdonSharpBehaviour
         */
     }
 
-    void ExitBuildMode()
+    void ExitBuildMode(bool justKickLocal)
     {
+        if (!inBuildMode) return;
+
+        if(!justKickLocal)
+        {
+            if (!Networking.IsOwner(gameObject)) Networking.SetOwner(localPlayer, gameObject);
+            syncedBuilderActive = false;
+            RequestSerialization();
+        }
+
         localPlayer.SetAvatarEyeHeightByMeters(normalUserHeight);
 
         ActivateBuilderObjects(false);
@@ -259,7 +280,7 @@ public class FortressBuilderController : UdonSharpBehaviour
         if (Input.GetKeyDown(KeyCode.PageDown) || Input.GetAxis("Mouse ScrollWheel") < -0f) SelectedFloor--;
 
         if (Input.GetKeyDown(KeyCode.F1)) MakePlayerTheBuilder(); 
-        if (Input.GetKeyDown(KeyCode.F2)) ExitBuildMode(); 
+        if (Input.GetKeyDown(KeyCode.F2)) ExitBuildMode(false);
 
         if (selectedElement != null) HandlePositionFortressElement();
 
@@ -353,5 +374,16 @@ public class FortressBuilderController : UdonSharpBehaviour
         {
             // VRChat event called multiple times for 2 years now (...): https://vrchat.canny.io/udon/p/1275-inputuse-is-called-twice-per-mouse-click
         }
+    }
+
+    public override void OnOwnershipTransferred(VRCPlayerApi player)
+    {
+        base.OnOwnershipTransferred(player);
+
+        if(!player.isLocal && syncedBuilderActive && inBuildMode)
+        {
+            ExitBuildMode(true);
+        }
+        else if(player.isLocal && syncedBuilderActive  && !inBuildMode) MakePlayerTheBuilder();
     }
 }
