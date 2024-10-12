@@ -3,11 +3,14 @@ using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
+using VRC.Udon.Common;
 
 namespace iffnsStuff.iffnsVRCStuff.FortressBuilder
 {
     public class FortressModel : UdonSharpBehaviour
     {
+        [SerializeField] FortressViewPlacingModels linkedViewPlacingModels;
+
         [UdonSynced] public int[] elementTypes = new int[0];
         [UdonSynced] public int[] xPos = new int[0];
         [UdonSynced] public int[] yPos = new int[0];
@@ -68,6 +71,28 @@ namespace iffnsStuff.iffnsVRCStuff.FortressBuilder
         {
             if (!Networking.IsOwner(gameObject)) Networking.SetOwner(Networking.LocalPlayer, gameObject);
             RequestSerialization();
+            //Debug.Log("Request serialization");
+        }
+
+        public override void OnPreSerialization()
+        {
+            base.OnPreSerialization();
+            //Debug.Log($"Serializing with {elementTypes.Length}");
+        }
+
+        public override void OnPostSerialization(SerializationResult result)
+        {
+            base.OnPostSerialization(result);
+            //Debug.Log($"Done serializing with {result.success}");
+        }
+
+        public override void OnDeserialization()
+        {
+            base.OnDeserialization();
+
+            //Debug.Log($"Update model with length {elementTypes.Length}");
+
+            linkedViewPlacingModels.RefreshEverything(this);
         }
     }
 }

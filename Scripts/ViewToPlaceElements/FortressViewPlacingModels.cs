@@ -24,7 +24,11 @@ public class FortressViewPlacingModels : UdonSharpBehaviour
         {
             prefabElements[i].Setup(i);
         }
+
+        setupComplete = true;
     }
+
+    bool setupComplete = false;
 
     public void RefreshEverything(FortressModel model)
     {
@@ -40,7 +44,7 @@ public class FortressViewPlacingModels : UdonSharpBehaviour
 
     public void BuildAllElements(int[] elementTypes, int[] xPos, int[] yPos, int[] zPos)
     {
-        for(int i = 0; i < elementTypes.Length; i++)
+        for (int i = 0; i < elementTypes.Length; i++)
         {
             Transform newElement = GameObject.Instantiate(prefabElements[elementTypes[i]].transform.gameObject).transform;
             newElement.parent = elementHolder;

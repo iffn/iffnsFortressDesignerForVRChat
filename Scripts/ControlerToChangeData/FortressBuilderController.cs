@@ -158,8 +158,6 @@ public class FortressBuilderController : UdonSharpBehaviour
             Vector3 rayDirection = head.rotation * Vector3.forward;
             float targetHeight = buildingGrid.position.y + linkedViewPlacingModels.GridSize.y * 0.5f;
             float heightDifference = targetHeight - head.position.y;
-            Debug.Log($"{nameof(targetHeight)} {targetHeight}");
-            Debug.Log($"{nameof(heightDifference)} {heightDifference}");
             float heightMultiplier = heightDifference / rayDirection.y;
             Vector3 rayOffset = rayDirection * heightMultiplier;
             Vector3 hitPosition = head.position + rayOffset;
@@ -205,8 +203,8 @@ public class FortressBuilderController : UdonSharpBehaviour
     void PlaceElement()
     {
         linkedModel.AddElement(selectedElement.ReferenceIndex, currentGridPosition.x, currentGridPosition.y, currentGridPosition.z);
-
         linkedViewPlacingModels.RefreshEverything(linkedModel);
+        linkedModel.Sync();
     }
 
     void DropElement()
@@ -229,7 +227,7 @@ public class FortressBuilderController : UdonSharpBehaviour
         SelectedFloor = 0;
         buildingGrid.SetPositionAndRotation(linkedViewPlacingModels.transform.position, linkedViewPlacingModels.transform.rotation);
 
-        if (localPlayer.isInstanceOwner)
+        if (Networking.IsOwner(linkedModel.gameObject))
         {
             Debug.Log("Making player instance owner");
             MakePlayerTheBuilder();
@@ -318,8 +316,11 @@ public class FortressBuilderController : UdonSharpBehaviour
 
         if (!player.isLocal) return;
 
-        normalUserHeight = localPlayer.GetAvatarEyeHeightAsMeters();
-        localPlayer.SetAvatarEyeHeightByMeters(builderPlayerHeight);
+        if(inBuildMode)
+        {
+            normalUserHeight = localPlayer.GetAvatarEyeHeightAsMeters();
+            localPlayer.SetAvatarEyeHeightByMeters(builderPlayerHeight);
+        }
     }
 
     public override void InputUse(bool value, UdonInputEventArgs args)
