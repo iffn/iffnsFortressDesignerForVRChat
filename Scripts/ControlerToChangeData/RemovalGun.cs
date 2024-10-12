@@ -15,6 +15,8 @@ public class RemovalGun : UdonSharpBehaviour
     [SerializeField] LineRenderer linkedLineRenderer1;
     [SerializeField] LineRenderer linkedLineRenderer2;
     [SerializeField] VRCPickup linkedPickup;
+    [SerializeField] Transform pickupMoverSinceScalingBrokenOnDesktop;
+    [SerializeField] Vector3 pickupOffsetSinceScalingBrokenOnDesktop;
 
     void Start()
     {
@@ -78,6 +80,7 @@ public class RemovalGun : UdonSharpBehaviour
         //Start beam
         linkedLineRenderer1.enabled = true;
         linkedLineRenderer2.enabled = true;
+        pickupMoverSinceScalingBrokenOnDesktop.localPosition = pickupOffsetSinceScalingBrokenOnDesktop;
     }
 
     public override void OnDrop()
@@ -85,6 +88,7 @@ public class RemovalGun : UdonSharpBehaviour
         base.OnDrop();
 
         //Stop beam
+        pickupMoverSinceScalingBrokenOnDesktop.localPosition = Vector3.zero;
         linkedLineRenderer1.enabled = false;
         linkedLineRenderer2.enabled = false;
     }
