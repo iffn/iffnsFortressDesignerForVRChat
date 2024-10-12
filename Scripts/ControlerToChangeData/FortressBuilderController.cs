@@ -321,8 +321,6 @@ public class FortressBuilderController : UdonSharpBehaviour
 
                 if (indexCanBeNegativeOne == -1) return;
 
-                Debug.Log($"Removing element {indexCanBeNegativeOne}");
-
                 linkedModel.RemoveElement(indexCanBeNegativeOne);
 
                 linkedViewPlacingModels.RefreshEverything(linkedModel);
