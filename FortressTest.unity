@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.25015837, g: 0.27889434, b: 0.5028866, a: 1}
+  m_AmbientSkyColor: {r: 0.5242524, g: 0.54636395, b: 0.7264151, a: 1}
   m_AmbientEquatorColor: {r: 0.10590956, g: 0.14138228, b: 0.18867922, a: 1}
   m_AmbientGroundColor: {r: 0.10946955, g: 0.1300853, b: 0.18867922, a: 1}
   m_AmbientIntensity: 1
@@ -1188,12 +1188,12 @@ Transform:
   m_GameObject: {fileID: 76530381}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: -3}
+  m_LocalPosition: {x: -25.5, y: 5.848175, z: -4.600006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1933652006}
-  m_Father: {fileID: 2141329773}
+  m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &76530383
 MonoBehaviour:
@@ -6290,12 +6290,12 @@ Transform:
   m_GameObject: {fileID: 439902880}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: -6}
+  m_LocalPosition: {x: -25.5, y: 5.848175, z: -7.600006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 939708474}
-  m_Father: {fileID: 2141329773}
+  m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &439902882
 MonoBehaviour:
@@ -6908,7 +6908,7 @@ Transform:
   m_GameObject: {fileID: 485118730}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -92.26013, y: -244.03572, z: -67.304565}
+  m_LocalPosition: {x: -207.81749, y: -244.03572, z: -210.79535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7715,12 +7715,12 @@ Transform:
   m_GameObject: {fileID: 582251949}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6}
+  m_LocalPosition: {x: -19.5, y: 5.848175, z: -7.600006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1091470317}
-  m_Father: {fileID: 2141329773}
+  m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &582251951
 MonoBehaviour:
@@ -7828,12 +7828,19 @@ Transform:
   m_GameObject: {fileID: 584147944}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -138.94264, y: -79.05183, z: 47.69079}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2141329773}
+  - {fileID: 1409848210}
+  - {fileID: 582251950}
+  - {fileID: 439902881}
+  - {fileID: 76530382}
+  - {fileID: 1289186758}
+  - {fileID: 738137622}
   - {fileID: 804512769}
+  - {fileID: 1179245003}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &606929463
@@ -10066,6 +10073,16 @@ MonoBehaviour:
   VisitorOnlyObjectHolder: {fileID: 485118730}
   builderPlayerHeight: 16
   selectedElement: {fileID: 0}
+  currentGridPosition: {x: 0, y: 0, z: 0}
+  headPosition: {x: 0, y: 0, z: 0}
+  rayDirection: {x: 0, y: 0, z: 0}
+  targetHeight: 0
+  heightDifference: 0
+  heightMultiplier: 0
+  rayOffset: {x: 0, y: 0, z: 0}
+  hitPosition: {x: 0, y: 0, z: 0}
+  localHitPosition: {x: 0, y: 0, z: 0}
+  placePosition: {x: 0, y: 0, z: 0}
 --- !u!1 &735506761
 GameObject:
   m_ObjectHideFlags: 0
@@ -10247,12 +10264,12 @@ Transform:
   m_GameObject: {fileID: 738137621}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: -19.5, y: 5.848175, z: 1.3999939}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1542406513}
-  m_Father: {fileID: 2141329773}
+  m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &738137623
 MonoBehaviour:
@@ -11475,7 +11492,7 @@ Transform:
   m_GameObject: {fileID: 804512768}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 138.94264, y: 29.051826, z: -47.69079}
+  m_LocalPosition: {x: -115.55736, y: -50, z: -143.49078}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18636,7 +18653,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179244999}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -18687,12 +18704,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179244999}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 126.3, y: -2, z: 146.3}
-  m_LocalScale: {x: 96, y: 96, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -7, y: 0, z: 5.9000015}
+  m_LocalScale: {x: 1352.64, y: 1352.64, z: 14.090004}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1180271575
 GameObject:
@@ -19855,8 +19872,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251342624}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20521,14 +20538,14 @@ Transform:
   m_GameObject: {fileID: 1289186757}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 3}
+  m_LocalPosition: {x: -25.5, y: 5.848175, z: 1.3999939}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 186784869}
   - {fileID: 443227321}
   - {fileID: 247310274}
-  m_Father: {fileID: 2141329773}
+  m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1289186759
 MonoBehaviour:
@@ -22129,12 +22146,12 @@ Transform:
   m_GameObject: {fileID: 1409848209}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3}
+  m_LocalPosition: {x: -19.5, y: 5.848175, z: -4.600006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1435540884}
-  m_Father: {fileID: 2141329773}
+  m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1409848211
 MonoBehaviour:
@@ -32399,16 +32416,10 @@ Transform:
   m_GameObject: {fileID: 2141329772}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 235, y: 84.9, z: 94.2}
+  m_LocalPosition: {x: -19.5, y: 5.848175, z: -1.6000061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1409848210}
-  - {fileID: 582251950}
-  - {fileID: 439902881}
-  - {fileID: 76530382}
-  - {fileID: 1289186758}
-  - {fileID: 738137622}
+  m_Children: []
   m_Father: {fileID: 584147945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3231720197660963110
@@ -32446,7 +32457,7 @@ Transform:
   m_GameObject: {fileID: 3480278762663670689}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 134.9, y: 0, z: 148.3}
+  m_LocalPosition: {x: 19.342636, y: 0, z: 4.8092194}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32612,14 +32623,14 @@ MonoBehaviour:
   interactThruLayers: 0
   autoSpatializeAudioSources: 0
   gravity: {x: 0, y: -9.81, z: 0}
-  layerCollisionArr: 01010101010001010101010100010001010101010101010101010101010101010101010101000101010101010001000101010101010101010101010101010101010101010100010101010101000100010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010001000101010101010101010101010101010101000000010000010100000000000000000000000000000101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101000100010101010101010101010101010101010101010101010001010100000100000000000001010101010101010101010101010101010101000101010000010000000000000101010101010101010101010101010101010100010101010101000100010101010101010101010101010101010100000001000001010000000000000000000000000000010101010101010101010101010101000101010000010001010101010000000001010101010101010101000000010000010100000000000100000000000000000101010101010101010101010101010001010100000100010001010101010101010101010101010101010101010101000101010000010001000101010101010101010101010101010101010101010100010101000001000100010101010101010101010101010101010101010101010001010101010100000001010101010101010101010101010101010101010101000101010101010000000101010101010101010101010101010101010101010100010101010101000000010101010101010101010101010101010101010101010001010101010100000001010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+  layerCollisionArr: 01010101010001010101010100010001010101000101010101010101010101010101010101000101010101010001000101010100010101010101010101010101010101010100010101010101000100010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010001000101010100010101010101010101010101000000010000010100000000000000000000000000000101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101000100010101010001010101010101010101010101010101010001010100000100000000000001000101010101010101010101010101010101000101010000010000000000000100010101010101010101010101010101010100010101010101000100010101010001010101010101010101010100000001000001010000000000000000000000000000010101010101010101010101010101000101010000010001010101010000000001010101010101010101000000010000010100000000000100000000000000000101010101010101010101010101010001010100000100010001010101000101010101010101010101010101010101000101010000010001000101010100010101010101010101010101010101010100010101000001000100010101010001010101010101010101010101010101010001010101010100000001010101000101010101010101010101010000000100000101000000000000000000000000000001010101010101010101010101010100010101010101000000010101010001010101010101010101010101010101010001010101010100000001010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
   capacity: 0
   contentSex: 0
   contentViolence: 0
   contentGore: 0
   contentOther: 0
   releasePublic: 0
-  unityVersion: 2019.4.31f1
+  unityVersion: 2022.3.22f1
   udonProducts: []
   Name: 
   NSFW: 0
@@ -32629,10 +32640,15 @@ MonoBehaviour:
   useAssignedLayers: 0
   DynamicPrefabs: []
   DynamicMaterials:
-  - {fileID: 2100000, guid: f46d93156b8df834bbe205ab58ce7d9f, type: 2}
-  - {fileID: 2100000, guid: 52f2c96dae8b5af4d87e7f160313fca5, type: 2}
-  - {fileID: 2100000, guid: d3a54f3e7f476364786daeefeb153900, type: 2}
-  - {fileID: 2100000, guid: 31aef87fd9cd7d9459f7d469f6be2f24, type: 2}
+  - {fileID: 2100000, guid: 0442cf1baff9dbe43a880c1b22e938f4, type: 2}
+  - {fileID: 2100000, guid: 48500509d915f184791c374d7724f3e1, type: 2}
+  - {fileID: 2100000, guid: 75524f22b6358f549ae4f84a325a8de9, type: 2}
+  - {fileID: 2100000, guid: 6a05b943ec5b69449bad3e2640030f6e, type: 2}
+  - {fileID: 2100000, guid: 86cf02d93994bcd4ab256192236030d7, type: 2}
+  - {fileID: 2100000, guid: 925bd39cb6a2270409d68d239b547a1d, type: 2}
+  - {fileID: 2100000, guid: 59b67d6384d50de41a1b973b8a197044, type: 2}
+  - {fileID: 2100000, guid: 12ffbb2f3cca4a94580e251fb8817443, type: 2}
+  - {fileID: 2100000, guid: 68e07db2acef8be40baf77fb87ced89c, type: 2}
   LightMapsNear: []
   LightMapsFar: []
   LightMode: 0
@@ -32685,7 +32701,48 @@ MonoBehaviour:
   RenderReflectionBounces: 0
   RenderReflectionIntensity: 0
   RenderSkybox: {fileID: 0}
-  NetworkIDs: []
+  NetworkIDs:
+  - gameObject: {fileID: 738137621}
+    ID: 10
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 1289186757}
+    ID: 11
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 582251949}
+    ID: 12
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 1409848209}
+    ID: 13
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 439902880}
+    ID: 14
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 76530381}
+    ID: 15
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 732360865}
+    ID: 16
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 865957500}
+    ID: 17
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 1600002178}
+    ID: 18
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 3480278762663670689}
+    ID: 19
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+    - VRC.Udon.UdonBehaviour
   portraitCameraPositionOffset: {x: 0, y: 0, z: 0}
   portraitCameraRotationOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   NavigationAreas: []
@@ -32789,7 +32846,7 @@ Transform:
   m_GameObject: {fileID: 7606902903243430483}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 126.3, y: 3.1, z: 146.3}
+  m_LocalPosition: {x: 10.742645, y: 3.1, z: 2.8092194}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32802,14 +32859,13 @@ SceneRoots:
   - {fileID: 3480278762663400089}
   - {fileID: 1069902877}
   - {fileID: 1787983411}
+  - {fileID: 1251342625}
   - {fileID: 7606902903243430487}
   - {fileID: 1767348543}
-  - {fileID: 1179245003}
   - {fileID: 358170790}
   - {fileID: 3887390901388042347}
   - {fileID: 931647258}
   - {fileID: 571042626}
-  - {fileID: 1251342625}
   - {fileID: 584147945}
   - {fileID: 485118731}
   - {fileID: 2077473603}

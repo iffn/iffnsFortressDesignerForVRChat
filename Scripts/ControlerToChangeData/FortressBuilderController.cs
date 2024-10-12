@@ -31,7 +31,11 @@ public class FortressBuilderController : UdonSharpBehaviour
     public FortressElementController selectedElement;
     Vector3 initialElementPosition;
 
-    Vector3Int currentGridPosition;
+    float walkSpeed;
+    float runSpeed;
+    float straveSpeed;
+
+    public Vector3Int currentGridPosition;
 
     //Internal functions
     void MakePlayerTheBuilder()
@@ -42,6 +46,14 @@ public class FortressBuilderController : UdonSharpBehaviour
         ActivateBuilderObjects(true);
 
         inBuildMode = true;
+
+        //Somehow gets reset:
+        /*
+        localPlayer.SetRunSpeed(runSpeed * builderPlayerHeight);
+        localPlayer.SetWalkSpeed(walkSpeed * builderPlayerHeight);
+        localPlayer.SetStrafeSpeed(straveSpeed * builderPlayerHeight);
+        */
+
     }
 
     void ExitBuildMode()
@@ -51,6 +63,12 @@ public class FortressBuilderController : UdonSharpBehaviour
         ActivateBuilderObjects(false);
 
         inBuildMode = false;
+
+        /*
+        localPlayer.SetRunSpeed(runSpeed);
+        localPlayer.SetWalkSpeed(walkSpeed);
+        localPlayer.SetStrafeSpeed(straveSpeed);
+        */
     }
 
     void ActivateBuilderObjects(bool builder)
@@ -85,6 +103,16 @@ public class FortressBuilderController : UdonSharpBehaviour
         }
     }
 
+    public Vector3 headPosition;
+    public Vector3 rayDirection;
+    public float targetHeight;
+    public float heightDifference;
+    public float heightMultiplier;
+    public Vector3 rayOffset;
+    public Vector3 hitPosition;
+    public Vector3 localHitPosition;
+    public Vector3 placePosition;
+
     void HandlePositionFortressElement()
     {
         if (inVR)
@@ -96,8 +124,16 @@ public class FortressBuilderController : UdonSharpBehaviour
         {
             VRCPlayerApi.TrackingData head = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head);
 
-            Vector3 rayDirection = head.rotation * Vector3.forward;
-
+            headPosition = head.position;
+            rayDirection = head.rotation * Vector3.forward;
+            targetHeight = linkedModel.transform.position.y;
+            heightDifference = targetHeight - head.position.y;
+            heightMultiplier = heightDifference / rayDirection.y;
+            rayOffset = rayDirection * heightMultiplier;
+            hitPosition = head.position + rayOffset;
+            localHitPosition = linkedModel.transform.InverseTransformPoint(hitPosition);
+            
+            /*
             Ray ray = new Ray(head.position, rayDirection);
 
             Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
@@ -116,6 +152,7 @@ public class FortressBuilderController : UdonSharpBehaviour
             }
 
             Vector3 localHitPosition = linkedModel.transform.InverseTransformPoint(hit.point);
+            */
 
             localHitPosition += largeOffset * 3; //Making sure the values are positive and rounded in the same direction
 
@@ -127,7 +164,9 @@ public class FortressBuilderController : UdonSharpBehaviour
 
             currentGridPosition -= largeOffset;
 
-            selectedElement.transform.position = linkedModel.transform.InverseTransformPoint(currentGridPosition * 3);
+            placePosition = linkedModel.transform.TransformPoint(currentGridPosition * 3);
+            selectedElement.transform.position = placePosition;
+
         }
     }
 
@@ -151,6 +190,10 @@ public class FortressBuilderController : UdonSharpBehaviour
         localPlayer = Networking.LocalPlayer;
         inVR = localPlayer.IsUserInVR();
 
+        walkSpeed = localPlayer.GetWalkSpeed();
+        runSpeed = localPlayer.GetRunSpeed();
+        straveSpeed = localPlayer.GetStrafeSpeed();
+
         if (Networking.LocalPlayer.playerId == 1)
         {
             MakePlayerTheBuilder();
@@ -159,6 +202,20 @@ public class FortressBuilderController : UdonSharpBehaviour
 
     private void Update()
     {
+        //Doing it once somehow gets reset
+        if (inBuildMode)
+        {
+            localPlayer.SetRunSpeed(runSpeed * builderPlayerHeight);
+            localPlayer.SetWalkSpeed(walkSpeed * builderPlayerHeight);
+            localPlayer.SetStrafeSpeed(straveSpeed * builderPlayerHeight);
+        }
+        else
+        {
+            localPlayer.SetRunSpeed(runSpeed);
+            localPlayer.SetWalkSpeed(walkSpeed);
+            localPlayer.SetStrafeSpeed(straveSpeed);
+        }
+
         if (selectedElement != null) HandlePositionFortressElement();
 
         if (inVR)
