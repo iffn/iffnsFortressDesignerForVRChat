@@ -24,8 +24,6 @@ public class FortressViewPlacingModels : UdonSharpBehaviour
         {
             prefabElements[i].Setup(i);
         }
-
-        setupComplete = true;
     }
 
     public void RefreshEverything(FortressModel model)
