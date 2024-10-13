@@ -50615,15 +50615,15 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 1600002181}
   prefabElements:
-  - {fileID: 1409848212}
-  - {fileID: 582251952}
-  - {fileID: 439902883}
-  - {fileID: 76530384}
   - {fileID: 738137624}
   - {fileID: 564300738}
   - {fileID: 1593756380}
   - {fileID: 1755517289}
   - {fileID: 1668151003}
+  - {fileID: 76530384}
+  - {fileID: 439902883}
+  - {fileID: 1409848212}
+  - {fileID: 582251952}
   - {fileID: 1813869480}
   - {fileID: 1051107760}
   - {fileID: 1056429992}
@@ -50634,6 +50634,8 @@ MonoBehaviour:
   - {fileID: 1163401007}
   - {fileID: 1956092559}
   - {fileID: 1762338717}
+  - {fileID: 1431213017}
+  - {fileID: 924664336}
   elementHolder: {fileID: 1600002180}
 --- !u!4 &1600002180
 Transform:
