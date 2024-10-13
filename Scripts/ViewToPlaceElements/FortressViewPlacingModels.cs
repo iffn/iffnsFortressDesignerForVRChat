@@ -28,8 +28,6 @@ public class FortressViewPlacingModels : UdonSharpBehaviour
         setupComplete = true;
     }
 
-    bool setupComplete = false;
-
     public void RefreshEverything(FortressModel model)
     {
         RemoveAllElements();
