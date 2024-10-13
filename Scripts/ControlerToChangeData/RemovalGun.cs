@@ -52,17 +52,25 @@ public class RemovalGun : UdonSharpBehaviour
         base.OnPickupUseDown();
 
         //Remove
-        Vector3 rayDirection = rayOriginTowardsZ.rotation * Vector3.forward;
+        Vector3 rayDirection = rayOriginTowardsZ.rotation * Vector3.right;
 
         Ray ray = new Ray(rayOriginTowardsZ.position, rayDirection);
 
         Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
 
-        if (hit.transform == null) return;
+        if (hit.transform == null)
+        {
+            Debug.Log("No nit");
+            return;
+        }
 
         FortressElementController element = hit.transform.GetComponent<FortressElementController>(); //TryGetComponent is not exposed in U# (...)
 
-        if (element == null) return;
+        if (element == null)
+        {
+            Debug.Log("Not an element, instead " + hit.transform.name);
+            return;
+        } 
 
         int indexCanBeNegativeOne = linkedViewPlacingModels.GetElementIndexCanBeNegativeOne(element);
 
