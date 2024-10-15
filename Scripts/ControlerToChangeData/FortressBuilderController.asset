@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: FortressBuilderController
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: a398e6f818f74844a8df1e025f8854fe,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: f828bd1ae88bfe3459e6027f851c86b7,
     type: 2}
   udonAssembly: 
   assemblyError: 
